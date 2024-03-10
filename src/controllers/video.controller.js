@@ -149,3 +149,17 @@ export const updateThumbnail = asyncHandler(async (req, res) => {
 
 // Views Count
 export const handleViews = asyncHandler(async (req, res) => {});
+
+export const deleteVideo = asyncHandler(async (req, res) => {
+
+  const {videoId} = req.params;
+
+  const video = await Video.findByIdAndDelete(videoId);
+
+  if(!video){
+    throw new ApiError(400,"Video Not Found")
+  }
+
+  return res.status(200).json(new ApiResponse(200,{},"Video deletd Successfully"))
+
+});
